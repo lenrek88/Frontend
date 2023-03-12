@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+            <button id="d">
+            Секундомер
+            </button>
+    </body>
+    <script>
+        let myButton = document.getElementById('d');
+        let count = 1;
+        let timer;
+        function myButtonHandler(event) {
+            event.preventDefault();
+            if (count === 1) {
+                timer = setInterval(() => console.log(new Date()), 1000);
+                count += 1;
+            } else
+            {
+                clearInterval(timer);
+                count = 1;
+            }
+        }
+
+        myButton.addEventListener('click', myButtonHandler);
+    </script>
+</html>
+
+
+

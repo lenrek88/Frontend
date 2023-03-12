@@ -1,0 +1,43 @@
+
+.a {
+    box-sizing: border-box;
+    position: absolute;
+    border: 1px solid #000000;
+
+    width: 95px;
+    height: 33px;
+    top: 40%;
+    left: 607px;
+}
+
+.b {
+    box-sizing: border-box;
+
+    position: absolute;
+    border: 1px solid #000000;
+    width: 95px;
+    height: 33px;
+    top: 40%;
+    left: 777px;
+}
+
+.c{
+    position: absolute;
+    width: 30px;
+    height: 33px;
+    top: 40%;
+    left: 725px;
+}
+
+.d {
+    box-sizing: border-box;
+    top: 40%;
+    left: 880px;
+    position: absolute;
+    width: 39px;
+    height: 33px;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
