@@ -9,38 +9,31 @@ import {list, addTask, deleteTask, changeStatus} from "./backend.js";
 
 function formHandler(event) {
 
-
     event.preventDefault();
 
-    let priority = 'high';
-    let textFromForm = event.target.firstElementChild.value;
-    // const newForm = document.createElement('form');
-    // newForm.className = 'mainFormNotReady';
-    // const newCheckbox = document.createElement('input');
-    // newCheckbox.type = 'checkbox';
-    // newCheckbox.className = 'chkNotReady';
-    // newCheckbox.value = "0";
-    // newCheckbox.addEventListener('click', checkboxHandler);
-    // const newText = document.createElement('p');
-    // newText.textContent = textFromForm;
-    // const newImg = document.createElement('img');
-    // newImg.addEventListener('click', delHandler)
-    // newImg.src = 'close-icon.svg';
-    // newForm.appendChild(newCheckbox);
-    // newForm.appendChild(newText);
-    // newForm.appendChild(newImg);
-    //
-    if (event.target.className === 'formHigh') {
-        // divHigh.appendChild(newForm);
-        priority = 'high';
+    try{
+        let priority = 'high';
+        let textFromForm = event.target.firstElementChild.value;
+        if (event.target.className === 'formHigh') {
+            // divHigh.appendChild(newForm);
+            priority = 'high';
 
-    } else {
-        // divLow.appendChild(newForm);
-        priority = 'low';
+        } else {
+            // divLow.appendChild(newForm);
+            priority = 'low';
+        }
+
+        addTask(textFromForm, priority);
+    } catch(e) {
+        alert(e.name);
+        alert(e.message);
+    } finally {
+        render();
     }
 
-    addTask(textFromForm, priority);
-    render();
+
+
+
 }
 
 function delHandler(event) {
@@ -68,7 +61,6 @@ function checkboxHandler(event) {
 }
 
 function render() {
-    console.log(list)
 
     let mainFormNotReady = document.querySelectorAll('.mainFormNotReady');
     let mainFormDone = document.querySelectorAll('.mainFormDone');
@@ -122,7 +114,6 @@ function render() {
         }
     }
 
-    console.log(list)
 
 }
 
