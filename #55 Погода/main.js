@@ -25,7 +25,7 @@ function displayOn() {
             contentDivThree.id = 'active';
             contentDivTwo.id = '';
             contentDivOne.id = '';
-            forecastF();
+            forecastHandler();
             break;
     }
 }
@@ -136,21 +136,93 @@ let detailsTemp = document.querySelector('.detailsTemp');
         .catch(error => alert(`Ooops.... Ошибка :( \n ${error} `))
 
 
-     forecastHandler(cityName);
     storage.saveCurrentCity(cityName);
 }
 
 
-function forecastHandler(cityName) {
+const MONTH = ['Jan','Feb','Mar','Apr','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function forecastHandler() {
 
     const serverUrl = 'http://api.openweathermap.org/data/2.5/forecast';
     const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-    const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
+    const url = `${serverUrl}?q=${thisCity.textContent}&appid=${apiKey}`;
+    const contentThree = document.querySelector('.content_3');
 
     fetch(url)
         .then(response => response.json())
-        .then(data =>
-            console.log(data)
+        .then(data => {
+                for (const item of data.list) {
+
+                    const divForecast = document.createElement('div')
+                    divForecast.className = 'forecast';
+
+                    const divDate = document.createElement('p');
+                    divDate.className = 'Date';
+                    divDate.textContent = `${new Date(item.dt*1000).getDate()} ${MONTH[new Date(item.dt*1000).getMonth()]}`;
+
+                    const divRain = document.createElement('p')
+                    divRain.className = 'rain';
+                    divRain.textContent = item.weather[0].main;
+
+
+                    const divFeelsTemp = document.createElement('div')
+                    divFeelsTemp.className = 'feelsTemp';
+                    let feelsLike = item.main.feels_like-273.15;
+                    divFeelsTemp.innerHTML = `Feels like: ${Math.floor(feelsLike)} &deg`;
+
+
+                    const divTemp = document.createElement('div')
+                    divTemp.className = 'temp';
+                    let temp = item.main.temp-273.15;
+                    divTemp.innerHTML = `Temperature: ${Math.floor(temp)} &deg`;
+
+
+                    const divTime = document.createElement('p')
+                    divTime.className = 'Time';
+                    divTime.textContent = `${new Date(item.dt*1000).getHours() < 10 ? `0${new Date(item.dt*1000).getHours()}` : new Date(item.dt*1000).getHours()}:${new Date(item.dt*1000).getMinutes()}0`;
+
+
+
+                    const divCloud = document.createElement('div')
+                    divCloud.className = 'thisCloud';
+
+                    if (item.weather[0].id === 800) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/01d@2x.png)';
+                    } else if (item.weather[0].id === 801) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/02d@2x.png)';
+                    } else if (item.weather[0].id === 802) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/03d@2x.png)';
+                    } else if (item.weather[0].id === 803 || item.weather[0].id === 804) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/04d@2x.png)';
+                    } else if (item.weather[0].id > 199 && item.weather[0].id < 233) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/11d@2x.png)';
+                    } else if (item.weather[0].id > 299 && item.weather[0].id < 322) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/09d@2x.png)';
+                    } else if (item.weather[0].id > 499 && item.weather[0].id < 505) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/10d@2x.png)';
+                    } else if (item.weather[0].id === 511) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/13d@2x.png)';
+                    } else if (item.weather[0].id > 519 && item.weather[0].id < 532) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/09d@2x.png)';
+                    } else if (item.weather[0].id > 599 && item.weather[0].id < 623) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/09d@2x.png)';
+                    } else if (item.weather[0].id > 700 && item.weather[0].id < 782) {
+                        divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/50d@2x.png)';
+                    }
+
+                    contentThree.append(divForecast);
+
+                    divForecast.append(divDate);
+                    divForecast.append(divTime);
+                    divForecast.append(divTemp);
+                    divForecast.append(divRain);
+                    divForecast.append(divFeelsTemp);
+                    divForecast.append(divCloud);
+
+                }
+        }
+
         )
 }
 
