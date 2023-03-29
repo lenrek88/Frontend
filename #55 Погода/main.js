@@ -131,10 +131,10 @@ let detailsTemp = document.querySelector('.detailsTemp');
             
             Sunset: ${sunset} <br>
             `
+            forecastHandler();
 
  })
         .catch(error => alert(`Ooops.... Ошибка :( \n ${error} `))
-
 
     storage.saveCurrentCity(cityName);
 }
@@ -144,11 +144,18 @@ const MONTH = ['Jan','Feb','Mar','Apr','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
 
 function forecastHandler() {
 
+    const deleteDiv = document.querySelectorAll('.forecast');
+
+    for (elem of deleteDiv) {
+        elem.remove();
+    }
+
     const serverUrl = 'http://api.openweathermap.org/data/2.5/forecast';
     const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
     const url = `${serverUrl}?q=${thisCity.textContent}&appid=${apiKey}`;
     const contentThree = document.querySelector('.content_3');
-
+    const detailsCity = document.querySelector('.detailsCity2');
+    detailsCity.textContent = thisCity.textContent;
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -210,6 +217,7 @@ function forecastHandler() {
                     } else if (item.weather[0].id > 700 && item.weather[0].id < 782) {
                         divCloud.style.backgroundImage = 'url(https://openweathermap.org/img/wn/50d@2x.png)';
                     }
+
 
                     contentThree.append(divForecast);
 
