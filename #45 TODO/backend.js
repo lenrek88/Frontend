@@ -4,8 +4,15 @@ export const list = [
     // {name: 'test', status: 'Done', priority: 'high'},
 ]
 
+export function Task(name, priority) {
+    this.name = name;
+    this.status = 'In Progress';
+    this.priority = priority;
+}
+
 export function addTask(name, priority){
-    const task = {name: name, status: 'In Progress', priority: priority}
+    // const task = {name: name, status: 'In Progress', priority: priority}
+    let task = new Task(name, priority);
     list.splice(list.length-1, 0, task);
 }
 
