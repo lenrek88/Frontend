@@ -1,0 +1,28 @@
+{
+  "name": "npmweather",
+  "version": "1.0.0",
+  "description": "weather",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenrek88/Frontend.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "lenrek88",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lenrek88/Frontend/issues"
+  },
+  "homepage": "https://github.com/lenrek88/Frontend#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}
