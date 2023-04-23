@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/lenrek88/Frontend#readme",
   "devDependencies": {
+    "eslint": "^8.39.0",
     "parcel": "^2.8.3"
   },
   "dependencies": {
