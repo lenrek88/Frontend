@@ -1,0 +1,29 @@
+{
+  "name": "datetime",
+  "version": "1.0.0",
+  "description": "time, date",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenrek88/Frontend.git"
+  },
+  "keywords": [
+    "time",
+    "date"
+  ],
+  "author": "Lenrek88",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lenrek88/Frontend/issues"
+  },
+  "homepage": "https://github.com/lenrek88/Frontend#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}

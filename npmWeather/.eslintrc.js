@@ -14,6 +14,6 @@ module.exports = {
         "prefer-const": "error",
         "eqeqeq": "off",
         "curly": "error",
-        "quotes": ["error", "double"]
+        "quotes": ["error", "single"]
     }
 }

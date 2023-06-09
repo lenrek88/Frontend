@@ -1,18 +1,18 @@
 import {getHours, getMinutes} from 'date-fns';
-
+import {getCookie, setCookie, deleteCookie} from './cookie';
 
 // Смена вкладок
 
-let now = document.querySelector('#tab-btn-1')
-let details = document.querySelector('#tab-btn-2')
-let forecast = document.querySelector('#tab-btn-3')
+const now = document.querySelector('#tab-btn-1')
+const details = document.querySelector('#tab-btn-2')
+const forecast = document.querySelector('#tab-btn-3')
 
 let locationsSet = new Set();
 
 function displayOn() {
-    let contentDivOne = document.querySelector('.content_1')
-    let contentDivTwo = document.querySelector('.content_2')
-    let contentDivThree = document.querySelector('.content_3')
+    const contentDivOne = document.querySelector('.content_1')
+    const contentDivTwo = document.querySelector('.content_2')
+    const contentDivThree = document.querySelector('.content_3')
 
 
     switch (this.id){
@@ -45,12 +45,12 @@ forecast.addEventListener('click', displayOn)
 
 
 
-let formFinder = document.querySelector(".text");
-let thisTemp = document.querySelector('.thisTemp');
-let thisCity = document.querySelector('.thisCity');
-let thisCloud = document.querySelector('.cloud');
-let detailsCity = document.querySelector('.detailsCity');
-let detailsTemp = document.querySelector('.detailsTemp');
+const formFinder = document.querySelector('.text');
+const thisTemp = document.querySelector('.thisTemp');
+const thisCity = document.querySelector('.thisCity');
+const thisCloud = document.querySelector('.cloud');
+const detailsCity = document.querySelector('.detailsCity');
+const detailsTemp = document.querySelector('.detailsTemp');
 
 function fetchData(url) {
     return fetch(url)
@@ -79,13 +79,13 @@ function fetchData(url) {
          const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
 
          const data = await fetchData(url);
-         let temp = (Math.round(data.main.temp-273.15));
-         let feelsLike = (Math.round(data.main.feels_like-273.15));
-         let weather = data.weather[0].main;
-         let sunriseMs = new Date(data.sys.sunrise*1000);
-         let sunsetMs = new Date(data.sys.sunset*1000);
-         let sunrise = ` ${getHours(sunriseMs)}:${getMinutes(sunriseMs)}`;
-         let sunset = ` ${getHours(sunsetMs)}:${getMinutes(sunsetMs)}`;
+         const temp = (Math.round(data.main.temp-273.15));
+         const feelsLike = (Math.round(data.main.feels_like-273.15));
+         const weather = data.weather[0].main;
+         const sunriseMs = new Date(data.sys.sunrise*1000);
+         const sunsetMs = new Date(data.sys.sunset*1000);
+         const sunrise = ` ${getHours(sunriseMs)}:${getMinutes(sunriseMs)}`;
+         const sunset = ` ${getHours(sunsetMs)}:${getMinutes(sunsetMs)}`;
          thisTemp.innerHTML = `${temp} &deg;`
          thisCity.textContent = cityName;
 
@@ -141,8 +141,8 @@ function fetchData(url) {
             Sunset: ${sunset} <br>
             `
          forecastHandler();
-         console.log(cityName)
-         storage.saveCurrentCity(cityName);
+         // storage.saveCurrentCity(cityName);
+         setCookie('cityName', cityName);
      } catch {
          (error => alert(`Ooops.... Ошибка :( \n ${error} `))
      }
@@ -183,13 +183,13 @@ async function forecastHandler() {
 
                     const divFeelsTemp = document.createElement('div')
                     divFeelsTemp.className = 'feelsTemp';
-                    let feelsLike = item.main.feels_like-273.15;
+                    const feelsLike = item.main.feels_like-273.15;
                     divFeelsTemp.innerHTML = `Feels like: ${Math.floor(feelsLike)} &deg`;
 
 
                     const divTemp = document.createElement('div')
                     divTemp.className = 'temp';
-                    let temp = item.main.temp-273.15;
+                    const temp = item.main.temp-273.15;
                     divTemp.innerHTML = `Temperature: ${Math.floor(temp)} &deg`;
 
 
@@ -251,19 +251,16 @@ const storage = {
         localStorage.setItem('FavoriteCity', JSON.stringify([...favoriteCities]));
     },
     getFavoriteCities() {
-        console.log(JSON.parse(localStorage.getItem('FavoriteCity')));
 
         return new Set(JSON.parse(localStorage.getItem('FavoriteCity')));
     },
     saveCurrentCity(CurrentCity) {
 
         localStorage.setItem('CurrentCity', JSON.stringify(CurrentCity));
-        console.log(CurrentCity)
 
 
     },
     getCurrentCity() {
-        console.log(localStorage.getItem('CurrentCity'))
         return JSON.parse(localStorage.getItem('CurrentCity'));
     }
 }
@@ -305,9 +302,7 @@ function reloadLikedItems() {
 
 function likeButtonHandler() {
 
-    console.log(locationsSet);
     locationsSet.add(thisCity.textContent);
-    console.log(locationsSet);
 
     reloadLikedItems();
 
@@ -315,7 +310,7 @@ function likeButtonHandler() {
 
 function deleteItemHandler(event) {
 
-    let findItem = event.target.previousSibling.textContent;
+    const findItem = event.target.previousSibling.textContent;
     locationsSet.delete(findItem);
     reloadLikedItems();
 
@@ -332,6 +327,9 @@ window.onload = function() {
     }
 
     reloadLikedItems();
-    formFinderHandler(event,storage.getCurrentCity())
+    formFinderHandler(event,getCookie('cityName'))
+
 
 }
+
+

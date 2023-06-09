@@ -1,0 +1,15 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "ya",
+  "main": "main.js",
+  "scripts": {
+    "tsc": "tsc",
+    "test": "a"
+  },
+  "author": "lenrek",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.9.1"
+  }
+}
