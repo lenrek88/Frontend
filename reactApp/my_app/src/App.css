@@ -1,0 +1,23 @@
+.app {
+  text-align: center;
+  display: block;
+  background-color: white;
+  width: 500px;
+  height: 500px;
+  margin: auto;
+
+}
+
+.inputText {
+  width: 300px;
+  height: 40px;
+  margin: 20px;
+}
+
+.buttonLogin {
+  background-color: blue;
+  width: 300px;
+  height: 70px;
+  margin: 20px;
+}
+
